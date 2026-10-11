@@ -11,15 +11,24 @@ class ModelManager:
         async with self.lock:
             # Inference runs off the event loop so host timers keep ticking.
             worker = asyncio.create_task(asyncio.to_thread(adapter, request))
-            try:
-                return await asyncio.shield(worker)
-            except asyncio.CancelledError:
-                # A Python thread cannot be interrupted. Hold the accelerator
-                # lock until the adapter has released its resources.
+            cancelled = False
+            while True:
                 try:
-                    await worker
-                finally:
+                    result = await asyncio.shield(worker)
+                    break
+                except asyncio.CancelledError:
+                    # Repeated cancellation must not interrupt the thread's
+                    # resource cleanup or let another model start early.
+                    if worker.cancelled():
+                        raise
+                    cancelled = True
+                except BaseException:
+                    if cancelled:
+                        raise asyncio.CancelledError() from None
                     raise
+            if cancelled:
+                raise asyncio.CancelledError()
+            return result
 
 class ConsoleSpeaker:
     def __call__(self, text):

@@ -23,7 +23,9 @@ The pairing code appears on the **device console**, expires after five minutes,
 and locks after five failed attempts. Pairing is single-use; restart the local
 service for another physical pairing window. A new pairing revokes the previous
 app token. State defaults to `data/device.sqlite`; set `MILK_FROG_DATA` to a
-private device directory. Only one service worker may control a device.
+private device directory. Set `MILK_FROG_WORKFLOWS` to a directory of locally
+reviewed JSON plans to replace the included catalog. Only one service worker may
+control a device.
 
 For a phone, run with a device hostname and a TLS certificate trusted by the
 phone (use a local CA or provisioned device certificate):
@@ -57,6 +59,7 @@ cd app
 flutter create --empty --platforms android,ios .
 flutter pub get
 flutter analyze
+flutter test
 flutter run
 ```
 
@@ -64,8 +67,8 @@ Ensure Android's main manifest has `android.permission.INTERNET` for release
 builds; configure iOS local-network usage description and your private CA trust
 on each platform. Pair using the physical code. Credentials use platform secure
 storage. The app selects approved plans and sends controls; session feedback is
-spoken locally. Flutter is not installed in the development environment used to
-build this repository, so platform compilation remains to be verified.
+spoken locally. Flutter analysis and widget tests can run without the device. Native Android/iOS
+compilation and physical microphone/camera/accelerator behavior are separate checks.
 
 Workflow JSON files live in `milk_frog/workflows/` and are included in Python packages.
 `approved_by` records the local reviewer; demo labels are placeholders, not external approval.
@@ -90,6 +93,9 @@ Ed25519 public key's raw bytes in hex, then send the signed entitlement to
 service. Receipt verification must validate store product and ownership,
 revocation and replay before enabling purchases. The UI currently covers local
 controls; account login and real store purchase UI are integration work.
+
+See [hardware-free testing](docs/testing.md) for the HTTPS, failure-injection and
+Flutter UI checks, plus what a passing CI run verifies. CI does not deploy a service.
 
 ## Privacy and limitations
 

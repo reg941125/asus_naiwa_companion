@@ -17,16 +17,15 @@ from .storage import Store
 ROOT = Path(__file__).resolve().parent
 
 def create_app(data_dir=None, workflow_dir=None, speaker=None):
-    store = Store(Path(data_dir or os.environ.get("MILK_FROG_DATA", "data")) / "device.sqlite")
     workflows = {}
-    for path in Path(workflow_dir or ROOT / "workflows").glob("*.json"):
+    for path in Path(workflow_dir or os.environ.get("MILK_FROG_WORKFLOWS") or ROOT / "workflows").glob("*.json"):
         value = Workflow.model_validate_json(path.read_text())
         if value.id in workflows:
             raise ValueError("Duplicate workflow ID")
         workflows[value.id] = value
     if not workflows:
-        store.close()
         raise ValueError("No approved workflows found")
+    store = Store(Path(data_dir or os.environ.get("MILK_FROG_DATA", "data")) / "device.sqlite")
     # Audio playback cannot block host timer processing.
     audio = asyncio.Queue(maxsize=32)
     def enqueue(text):
