@@ -1,0 +1,21 @@
+{
+  "id": "cooking_demo",
+  "title": "Cold fruit bowl demo",
+  "mode": "cooking",
+  "approved_by": "Milk Frog demo content; replace with local reviewer for real tasks",
+  "pack": null,
+  "steps": [
+    {
+      "text": "In a permitted kitchen, wash your hands and fruit.",
+      "timer_seconds": null
+    },
+    {
+      "text": "Use prepared fruit pieces and place them in a bowl.",
+      "timer_seconds": null
+    },
+    {
+      "text": "Mix and serve. Confirm when finished.",
+      "timer_seconds": null
+    }
+  ]
+}

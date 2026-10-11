@@ -1,0 +1,21 @@
+{
+  "id": "study_25_5",
+  "title": "25 minute study session",
+  "mode": "study",
+  "approved_by": "Milk Frog demo content; replace with local reviewer for real tasks",
+  "pack": null,
+  "steps": [
+    {
+      "text": "Choose your study goal and work for 25 minutes.",
+      "timer_seconds": 1500
+    },
+    {
+      "text": "Take a five minute break.",
+      "timer_seconds": 300
+    },
+    {
+      "text": "Review your progress. Confirm to finish.",
+      "timer_seconds": null
+    }
+  ]
+}

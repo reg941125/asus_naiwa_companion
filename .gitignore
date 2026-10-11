@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+*.sqlite*
+.env
+secrets/
+.dart_tool/
+build/
+app/.flutter-plugins*
+*.egg-info/
+dist/

@@ -1,0 +1,21 @@
+{
+  "id": "experiment_demo",
+  "title": "Supervised workspace checklist",
+  "mode": "experiment",
+  "approved_by": "Milk Frog demo content; replace with local reviewer for real tasks",
+  "pack": null,
+  "steps": [
+    {
+      "text": "Ask your supervisor to approve the workspace and checklist.",
+      "timer_seconds": null
+    },
+    {
+      "text": "Confirm the materials match the supervisor-approved list. Ask your supervisor if unsure.",
+      "timer_seconds": null
+    },
+    {
+      "text": "Confirm the workspace is ready. Follow your separately approved protocol with your supervisor.",
+      "timer_seconds": null
+    }
+  ]
+}
